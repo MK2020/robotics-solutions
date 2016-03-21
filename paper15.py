@@ -35,7 +35,7 @@ def ComputeWheelRotations(v, thetadot):
 '''
 def ComputeAngleControllerOutput(alpha):
   if alpha > pi:
-    alpha -= 2pi
+    alpha -= 2 * pi
   return k_p * alpha
 
 def ComputeDistanceControllerOutput(D, r_D):
@@ -83,7 +83,7 @@ angle_integral = 0
 angle_error_prior = 0
 def ComputeAngleControllerOutput(alpha):
   if alpha > pi:
-    alpha -= 2pi
+    alpha -= 2 * pi
   angle_integral = angle_integral + (alpha * iteration_time)
   derivative = (alpha – angle_error_prior) / iteration_time
   angle_error_prior = alpha
@@ -281,9 +281,9 @@ def WithinBeam(i, j, x, y, angle):
     |                             ..|       |..
     |                            .. |       | ..
     |                          ..   |       |   ..
-    |..........................     |       |    ..........................
+    |..........................     |       |    ...........................
     |                               |       |
-    |    ~~~~~~~~~~~~~~~~~~~~~~~~  Garbage area  ~~~~~~~~~~~~~~~~~~~~~~~~
+    |    ~~~~~~~~~~~~~~~~~~~~~~~~  garbage area  ~~~~~~~~~~~~~~~~~~~~~~~~
     |                               |       |
     +-----------------------------------------------------------------------
                                                                            z
@@ -306,7 +306,7 @@ def WithinBeam(i, j, x, y, angle):
     |                     ...    |             |    ...
     |                 ....       |             |       ....
     |................            |             |            ................
-    |    ~~~~~~~~~~~~~~~~~~~~~~~~  Garbage area  ~~~~~~~~~~~~~~~~~~~~~~~~
+    |    ~~~~~~~~~~~~~~~~~~~~~~~~  garbage area  ~~~~~~~~~~~~~~~~~~~~~~~~
     |                            |             |
     +-----------------------------------------------------------------------
                                                                            z
@@ -325,10 +325,10 @@ def WithinBeam(i, j, x, y, angle):
     |                          ...             ...
     |                        ..                    |---- standard
     |                     ...|                     |...  deviation 36cm
-    |                  ...   |                     |   ...
-    |             .....      |                     |      .....
-    |        ......          |                     |          ......
-    |........                |                     |                ........
+    | garbage          ...   |                     |   ...
+    |  area       .....      |                     |      .....
+    |   |    ......          |                     |          ......
+    |...|....                |                     |                ........
     +-----------------------------------------------------------------------
                                                                            z
 '''
