@@ -28,7 +28,7 @@
 '''
   Q1b
   ------------------
-  P(bright, cold | kitchen)     = 2/5 * 9/10 = 18/25
+  P(bright, cold | kitchen)     = 4/5 * 9/10 = 18/25
   P(bright, cold | bathroom)    = 3/10 * 2/5 = 3/25
   P(bright, cold | living room) = 3/5 * 2/5  = 6/25
 

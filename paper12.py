@@ -87,7 +87,7 @@ def drawSample(cumArray):
   This question is similar to Q2ai in the 2013 paper.
 '''
 k_p = 1.0 # needs to be calibrated
-REF_POWER = 30 # choose
+REF_POWER = 10 # choose reference speed value
 def FollowWall(D):
   while True:
     z = getSonarDepth()
@@ -97,6 +97,7 @@ def FollowWall(D):
     SetRightPower(REF_PWER + gain)
     timer.sleep(0.05)
 
+FollowWall(30) # trigger our script
 
 '''
   Q2aii
@@ -147,10 +148,13 @@ def FollowWall(D):
       SetRightPower(-REF_POWER)
       timer.sleep(0.05) # wait as long as it takes to perform right turn
 
+FollowWall(30) # trigger our script
 
 '''
   Q2c
   ------------------
+  This question is similar to Q4b in the 2011 paper.
+
   Using the rotating sonar, we can measure the distance in every direction
   in certain intervals (e.g. 1°). The values are then stored as "signature".
   By collecting signatures for different location, a robot could recognise
@@ -197,10 +201,6 @@ def FollowWall(D):
 
   It's very clear that the standard deviation grows proportionally to the
   ground truth distance measured.
-
-  It seems like the plot is also drifting in some direction, indicating
-  biased measurements (reporting values too high) with growing ground
-  truth values.
 '''
 
 
@@ -218,6 +218,8 @@ def FollowWall(D):
 '''
   Q3b
   ------------------
+  This question is similar to Q3b in the 2011 paper.
+
   The result will look somewhat like this:
 
   m = 100
@@ -261,11 +263,13 @@ def FollowWall(D):
 '''
   Q4a
   ------------------
+  This question is similar to Q1a in the 2011 paper.
+
   Given:
     WaypointX[]
     WaypointY[]
 '''
-def navigateToWaypoints(WaypointX, WaypointY)
+def navigateToWaypoints(WaypointX, WaypointY):
   currentPos = (0, 0, 0)
   for i in range(len(WaypointY)):
     deltaX = WaypointX[i] - currentPos[0]
@@ -279,12 +283,13 @@ def navigateToWaypoints(WaypointX, WaypointY)
       angle += 2*pi
     Rotate(angle)
 
-    #move to new point
+    # move to new point
     dist = sqrt(deltaX ** 2 + deltaY ** 2)
     DriveForward(dist)
 
     Beep()
 
+navigateToWaypoints(WaypointX, WaypointY) # call our function
 
 '''
   Q4bi

@@ -154,6 +154,8 @@ def DrawSample(cumArray):
 '''
   Q2bi
   ------------------
+  This question is similar to Q4ai in the 2011 paper.
+  This solution works if the wall is steady.
 '''
 K = 30 # gain constant, needs to be calibrated
 
