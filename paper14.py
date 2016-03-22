@@ -1,6 +1,7 @@
 '''
   Q1a
   ------------------
+  This question is similar to Q1a in the 2012 paper.
 '''
 def InitialiseParticleSet():
   return [((0.1, 0.1, 0.0), 1.0/100)] * 100
@@ -9,6 +10,7 @@ def InitialiseParticleSet():
 '''
   Q1b
   ------------------
+  This question is similar to Q1b in the 2012 paper.
 '''
 e_dev = 0.1 # standard deviation for e, to be calibrated
 f_dev = 0.6 # standard deviation for f, to be calibrated
@@ -30,6 +32,8 @@ def MotionPrediction(D, alpha):
 '''
   Q1c
   ------------------
+  This question is similar to Q1c in the 2012 paper.
+
   ST_DEV reporesents the standard deviation of the sonar measurements
   K represents the percentage of garbage readings returned by sensor
 '''
@@ -45,6 +49,7 @@ def MeasurementUpdate(z):
 '''
   Q1d
   ------------------
+  This question is similar to Q1d in the 2012 paper.
 '''
 def NormaliseParticleSet():
   weightSum = sum(map(lambda part: part[1], particleSet))
@@ -54,10 +59,11 @@ def NormaliseParticleSet():
 '''
   Q1e
   ------------------
+  This question is similar to Q1e in the 2012 paper.
 '''
 def ResampleParticleSet():
   cumArray = CumulativeArray()
-  particleSet = [(DrawSample(), 1.0/100) for i in range(100)]
+  particleSet = [(DrawSample(cumArray), 1.0/100) for i in range(100)]
 
 def CumulativeArray():
   cumArray = [0] * 100
@@ -97,8 +103,8 @@ def DrawSample(cumArray):
     |   Garbage area             .. |       | ..
     |         |                ..   |       |   ..
     |.........|................     |       |    ...........................
-    +-----------------------------------------------------------------------
-                                                                           z
+    +-----------------------------------|-----------------------------------
+                                       z=m
 
     m = 2m
     - standard deviation 20cm
@@ -118,8 +124,8 @@ def DrawSample(cumArray):
     |................            |             |            ................
     |    ~~~~~~~~~~~~~~~~~~~~~~~~  Garbage area  ~~~~~~~~~~~~~~~~~~~~~~~~
     |                            |             |
-    +-----------------------------------------------------------------------
-                                                                           z
+    +-----------------------------------|-----------------------------------
+                                       z=m
 
     m = 3m
     - standard deviation 30cm
@@ -140,8 +146,8 @@ def DrawSample(cumArray):
     |                        |                     |
     |    ~~~~~~~~~~~~~~~~~~~~~~~~  Garbage area  ~~~~~~~~~~~~~~~~~~~~~~~~
     |                        |                     |
-    +-----------------------------------------------------------------------
-                                                                           z
+    +-----------------------------------|-----------------------------------
+                                       z=m
 '''
 
 

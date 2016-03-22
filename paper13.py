@@ -14,10 +14,10 @@
     P(bathroom) =     8/40 = 1/5
     P(living room) = 20/40 = 1/2
 
-  Marginal likelihood
+  Marginal likelihood:
     P(bright) = 3/10 * 0.8 + 1/5 * 0.3 + 1/2 * 0.6 = 3/5
 
-  Posterior (P(X|bright))
+  Posterior (P(X|bright)):
     P(kitchen | bright)     = P(bright | kitchen) * P(kitchen) / P(bright)
                             = 4/5 * 3/10 / 3/5 = 2/5
     P(bathroom | bright)    = 3/10 * 1/5 / 3/5 = 1/10
@@ -66,21 +66,20 @@
 '''
   Q2ai
   ------------------
+  This question is similar to Q2ai in the 2012 paper.
 '''
 def FollowWall(zDesired):
   speed = 10.0 # motor speed
   k_p = 1.0 # proportional gain constant (needs to be calibrated)
-  GAIN_LIMIT = 2 # upper and lower limit for gain value
 
   while True:
-    zActual = GetSonarDepth()
-    error = zActual - zDesired
-    gain = k_p * (error) / 2
+    error = zDesired - GetSonarDepth()
+    gain = k_p * error / 2
     # upper and lower limit for speed
     gain = min(max(gain, -GAIN_LIMIT), GAIN_LIMIT)
 
-    SetLeftVelocity(speed - gain)
-    SetRightVelocity(speed + gain)
+    SetLeftVelocity(speed + gain)
+    SetRightVelocity(speed - gain)
     time.sleep(0.05)
 
 FollowWall(30) # Trigger our script
@@ -89,10 +88,12 @@ FollowWall(30) # Trigger our script
 '''
   Q2aii
   ------------------
-  The gain value defines how we adjust the speed of the robot's wheels in
-  proportion to the error. We set it to 1.0, however, in practice this
-  value needs to be calibrated. The value will need to be adjusted with
-  regard to the speed at which the robot is moving forward.
+  This question is similar to Q2aii in the 2012 paper.
+
+  The gain value (k_p) defines how we adjust the speed of the robot's
+  wheels in proportion to the error. We set it to 1.0, however, in practice
+  this value needs to be calibrated. The value will need to be adjusted
+  with regard to the speed at which the robot is moving forward.
 
   A value too high will result in the robot taking too sudden turns, and
   hence either instantly driving into the wall or suddenly turning away
@@ -135,8 +136,8 @@ FollowWall(30) # Trigger our script
     |   Garbage area             .. |       | ..
     |         |                ..   |       |   ..
     |.........|................     |       |    ...........................
-    +-----------------------------------------------------------------------
-                                                                           z
+    +-----------------------------------|-----------------------------------
+                                       z=m
 
     m = 2m
     - standard deviation 20cm
@@ -156,8 +157,8 @@ FollowWall(30) # Trigger our script
     |................            |             |            ................
     |    ~~~~~~~~~~~~~~~~~~~~~~~~  Garbage area  ~~~~~~~~~~~~~~~~~~~~~~~~
     |                            |             |
-    +-----------------------------------------------------------------------
-                                                                           z
+    +-----------------------------------|-----------------------------------
+                                       z=m
 
     m = 3m
     - standard deviation 30cm
@@ -178,8 +179,8 @@ FollowWall(30) # Trigger our script
     |                        |                     |
     |    ~~~~~~~~~~~~~~~~~~~~~~~~  Garbage area  ~~~~~~~~~~~~~~~~~~~~~~~~
     |                        |                     |
-    +-----------------------------------------------------------------------
-                                                                           z
+    +-----------------------------------|-----------------------------------
+                                       z=m
 '''
 
 

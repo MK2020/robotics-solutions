@@ -202,11 +202,16 @@ def OptimiseOrder(currentPoint, waypointList):
     to grid borders.
     For simplicity, we say that any cell "lies within the beam" if any part
     of the beam goes through the cell.
+
+  We use different values for U_FREE and U_OCC because we have more
+  confidence in a field being free if it's in the sonar beam than a cell
+  being occupied if it's at the end of the sonar beam.
 '''
 
 LOW_LIMIT = -4 # lower limit for log odds value of a cell
 UP_LIMIT = 4 # upper limit for log odds value of a cell
-U = 1 # update value for log odds
+U_FREE = -1 # update value for log odds when field is free
+U_OCC = 0.5 # update value for log odds when field is occupied
 
 def UpdateOccupancyMap(x, y, theta, z, alpha):
   # normalise angles
@@ -219,9 +224,9 @@ def UpdateOccupancyMap(x, y, theta, z, alpha):
       if WithinBeam(i, j, x, y, abs_angle):
         distance = sqrt((i-x)**2 + (j-y)**2)
         if distance <= z - 4:
-          occupancyMap[i][j] = max(occupancyMap[i][j] - U, LOW_LIMIT)
+          occupancyMap[i][j] = max(occupancyMap[i][j] + U_FREE, LOW_LIMIT)
         elif distance <= z + 4:
-          occupancyMap[i][j] = min(occupancyMap[i][j] + U, UP_LIMIT)
+          occupancyMap[i][j] = min(occupancyMap[i][j] + U_OCC, UP_LIMIT)
 
 def NormaliseAngle(angle):
   angle = angle % (2 * pi)
@@ -285,8 +290,8 @@ def WithinBeam(i, j, x, y, angle):
     |                               |       |
     |    ~~~~~~~~~~~~~~~~~~~~~~~~  garbage area  ~~~~~~~~~~~~~~~~~~~~~~~~
     |                               |       |
-    +-----------------------------------------------------------------------
-                                                                           z
+    +-----------------------------------|-----------------------------------
+                                       z=m
 
     m = 2m
     - medium range
@@ -308,8 +313,8 @@ def WithinBeam(i, j, x, y, angle):
     |................            |             |            ................
     |    ~~~~~~~~~~~~~~~~~~~~~~~~  garbage area  ~~~~~~~~~~~~~~~~~~~~~~~~
     |                            |             |
-    +-----------------------------------------------------------------------
-                                                                           z
+    +-----------------------------------|-----------------------------------
+                                       z=m
 
     m = 3m
     - long range
@@ -329,8 +334,8 @@ def WithinBeam(i, j, x, y, angle):
     |  area       .....      |                     |      .....
     |   |    ......          |                     |          ......
     |...|....                |                     |                ........
-    +-----------------------------------------------------------------------
-                                                                           z
+    +-----------------------------------|-----------------------------------
+                                       z=m
 '''
 
 
