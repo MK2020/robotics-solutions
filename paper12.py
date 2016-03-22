@@ -122,8 +122,6 @@ def FollowWall(D):
 '''
   Q2b
   ------------------
-  This question isn't quite
-
   Extending Q2ai as follows:
 '''
 TURN_THRESHOLD = 50 # threshold at which we assume that the wall
