@@ -39,7 +39,7 @@ def ComputeAngleControllerOutput(alpha):
   return k_p * alpha
 
 def ComputeDistanceControllerOutput(D, r_D):
-  return k_p * (r_D - D)
+  return k_p * (D - r_D)
 
 
 '''
