@@ -39,7 +39,7 @@ def MeasurementUpdate(z):
   for part in particleSet:
     dist = GetDistanceToClosestWall(part[0][0], part[0][1], part[0][2])
     err = z - dist
-    part[1] = math.exp(-(z**2) / (2 * (ST_DEV**2))) + K
+    part[1] = math.exp(-(err**2) / (2 * (ST_DEV**2))) + K
 
 
 '''
@@ -56,7 +56,7 @@ def NormaliseParticleSet():
   ------------------
 '''
 def ResampleParticleSet():
-  cumArray = cumArray()
+  cumArray = CumulativeArray()
   particleSet = [(DrawSample(), 1.0/100) for i in range(100)]
 
 def CumulativeArray():
@@ -78,6 +78,8 @@ def DrawSample(cumArray):
 '''
   Q2a
   ------------------
+  This is the same as question Q3a in the 2013 paper.
+
     m = 1m
     - standard deviation = 10cm
     - 5% garbage readings
@@ -187,6 +189,8 @@ NavigateToDistance(30)
 '''
   Q3a
   ------------------
+  This question is similar to Q3b in the 2013 paper.
+
   The provided function will store the array signature in a way that the
   position in the array does not correlate with the actual angle of the
   sonar. This doesn't matter, as long as we keep that in mind.
@@ -212,7 +216,7 @@ def RecognisePlace(SavedSignatures):
   bestDiff = inf
   for i, savedSignature in enumerate(SavedSignatures):
     diff = sum[abs(x - y) for x, y in zip(list1, list2)]
-    if (diff < bestDiff && diff < THRESHOLD):
+    if (diff < bestDiff and diff < THRESHOLD):
       bestSignature = i
       bestDiff = diff
   return bestSignature
@@ -221,6 +225,7 @@ def RecognisePlace(SavedSignatures):
 '''
   Q3c
   ------------------
+  This question is similar to Q3c in the 2013 paper.
 '''
 def ConvertSingatureToHistogram(Signature):
   histogram = [0] * 200/5
