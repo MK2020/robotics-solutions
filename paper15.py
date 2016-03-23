@@ -145,17 +145,13 @@ def NavigateToAll(waypointList):
     d_y = waypoint.y - currentPoint.y
 
     # rotate to waypoint
-    angle = atan2(d_y, d_x) - currentAngle
-    if angle > pi:
-      angle -= 2*pi
-    if angle <= -pi:
-      angle += 2*pi
+    angle = NormaliseAngle(atan2(d_y, d_x) - currentAngle)
     Rotate(angle)
 
     # move to waypoint
     dist = sqrt((currentPoint.x - waypointList[i].x) ** 2
                 + (currentPoint.y - waypointList[i].y) ** 2)
-    destReached = False
+
     while dist:
       # move in steps of 20cm
       distStep = min(20, dist)
@@ -163,7 +159,15 @@ def NavigateToAll(waypointList):
       dist -= distStep
 
     currentPoint = waypoint
+    currentAngle = NormaliseAngle(currentAngle + angle)
     Beep()
+
+def NormaliseAngle(angle):
+  if angle > pi:
+    angle -= 2*pi
+  if angle <= -pi:
+    angle += 2*pi
+  return angle
 
 def OptimiseOrder(currentPoint, waypointList):
   # assert: len(waypointList) > 0
